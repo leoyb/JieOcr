@@ -53,9 +53,9 @@ public final class OcrV3Recognition {
 
         for (int i = 0; i < boxes.size(); i++) {
             Image subImg = getSubImage(image, boxes.get(i).getBoundingBox());
-            if (subImg.getHeight() * 1.0 / subImg.getWidth() > 1.5) {
-                subImg = rotateImg(subImg);
-            }
+//            if (subImg.getHeight() * 1.0 / subImg.getWidth() > 1.5) {
+//                subImg = rotateImg(subImg);
+//            }
             String name = recognizer.predict(subImg);
             System.out.println(name);
             names.add(name);

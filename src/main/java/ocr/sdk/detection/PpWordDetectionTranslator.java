@@ -25,7 +25,7 @@ public class PpWordDetectionTranslator implements Translator<Image, DetectedObje
         max_side_len =
                 arguments.containsKey("maxLength")
                         ? Integer.parseInt(arguments.get("maxLength").toString())
-                        : 2160;
+                        : 240;
     }
 
     @Override
@@ -61,11 +61,11 @@ public class PpWordDetectionTranslator implements Translator<Image, DetectedObje
 
         // limit the max side
         float ratio = 1.0f;
-        if (Math.max(resize_h, resize_w) > max_side_len) {
+        if (Math.min(resize_h, resize_w) < max_side_len) {
             if (resize_h > resize_w) {
-                ratio = (float) max_side_len / (float) resize_h;
-            } else {
                 ratio = (float) max_side_len / (float) resize_w;
+            } else {
+                ratio = (float) max_side_len / (float) resize_h;
             }
         }
 
