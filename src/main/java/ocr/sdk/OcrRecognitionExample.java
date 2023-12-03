@@ -70,7 +70,7 @@ public final class OcrRecognitionExample {
         //1.识别大奖
         Rectangle rectangle0 = new Rectangle(0, 0.5, 1, 0.4);
         //2.识别下面4个分数
-        Rectangle rectangle1 = new Rectangle(0.1, 0.945, 0.043, 0.054);
+        Rectangle rectangle1 = new Rectangle(0.092, 0.945, 0.048, 0.054);
         Rectangle rectangle2 = new Rectangle(0.353, 0.945, 0.043, 0.054);
         Rectangle rectangle3 = new Rectangle(0.61, 0.945, 0.043, 0.054);
         Rectangle rectangle4 = new Rectangle(0.86, 0.945, 0.043, 0.054);
