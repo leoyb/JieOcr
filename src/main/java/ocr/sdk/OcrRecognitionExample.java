@@ -56,6 +56,7 @@ public final class OcrRecognitionExample {
 
     static {
         try {
+            //只需要加载一次，不用每次都加载
             detectionModel = ModelZoo.loadModel(detection.detectCriteria());
             recognitionModel = ModelZoo.loadModel(recognition.recognizeCriteria());
         } catch (IOException | ModelNotFoundException | MalformedModelException e) {
