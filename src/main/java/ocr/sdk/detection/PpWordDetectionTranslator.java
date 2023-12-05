@@ -14,18 +14,13 @@ import ai.djl.translate.TranslatorContext;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.IntStream;
 
 public class PpWordDetectionTranslator implements Translator<Image, DetectedObjects> {
 
-    private final int max_side_len;
+    private final int max_side_len = 192;
 
-    public PpWordDetectionTranslator(Map<String, ?> arguments) {
-        max_side_len =
-                arguments.containsKey("maxLength")
-                        ? Integer.parseInt(arguments.get("maxLength").toString())
-                        : 240;
+    public PpWordDetectionTranslator() {
     }
 
     @Override

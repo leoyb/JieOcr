@@ -1,6 +1,5 @@
 package ocr.sdk.recognition;
 
-import ai.djl.Model;
 import ai.djl.modality.cv.Image;
 import ai.djl.modality.cv.util.NDImageUtils;
 import ai.djl.ndarray.NDArray;
@@ -13,34 +12,24 @@ import ai.djl.translate.Translator;
 import ai.djl.translate.TranslatorContext;
 import ai.djl.util.Utils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class PpWordRecognitionTranslator implements Translator<Image, String> {
     private List<String> table;
-    private final boolean use_space_char;
 
-    public PpWordRecognitionTranslator(Map<String, ?> arguments) {
-        use_space_char =
-                arguments.containsKey("use_space_char")
-                        ? Boolean.parseBoolean(arguments.get("use_space_char").toString())
-                        : false;
+    public PpWordRecognitionTranslator() throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream("src/models/ch_PP-OCRv3_rec_infer/ppocr_keys_v1.txt");
+        table = Utils.readLines(fis, true);
+        table.add(0, "blank");
+        table.add("");
     }
 
     @Override
     public void prepare(TranslatorContext ctx) throws IOException {
-        Model model = ctx.getModel();
-        try (InputStream is = model.getArtifact("ppocr_keys_v1.txt").openStream()) {
-            table = Utils.readLines(is, true);
-            table.add(0, "blank");
-            if(use_space_char)
-                table.add(" ");
-            else
-                table.add("");
-        }
     }
 
     @Override
