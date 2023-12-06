@@ -43,6 +43,8 @@ public class PpWordDetectionTranslator implements Translator<Image, DetectedObje
             names.add("word");
             probs.add(1.0);
         }
+        result.close();
+        ctx.close();
         return new DetectedObjects(names, probs, boxes);
     }
 

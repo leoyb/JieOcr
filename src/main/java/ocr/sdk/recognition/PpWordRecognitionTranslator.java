@@ -52,6 +52,8 @@ public class PpWordRecognitionTranslator implements Translator<Image, String> {
                 sb.append(table.get((int) indices[i]));
             }
         }
+        list.close();
+        ctx.close();
         return sb.toString();
     }
 
