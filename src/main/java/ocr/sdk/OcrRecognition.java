@@ -151,14 +151,8 @@ public class OcrRecognition {
             }
 
             int pos = getPartition(rectangle.getX());
-            System.out.println("pos is:" + pos);
-            System.out.println("Deque is:");
             appeal.add(pos);
             LinkedList<String> de = awardQueue.getDeque(pos);
-            for (int i = 0; i < de.size(); i++) {
-                de.get(i);
-                System.out.printf(" " + de.get(i));
-            }
             text = awardQueue.doMatch(pos, text, true);
             System.out.println("match is:" + text);
             if (StringUtils.isBlank(text)) {
@@ -172,13 +166,9 @@ public class OcrRecognition {
 
         }
         Set<Integer> diff = new HashSet<>(POS);
-        for (Integer pos : appeal) {
-            System.out.println("appeal POS:" + pos);
-        }
         // 移除所有已出现的元素
         diff.removeAll(appeal);
         for (Integer pos : diff) {
-            System.out.println("set NA POS:" + pos);
             awardQueue.doMatch(pos, "NA", true);
         }
         return result;

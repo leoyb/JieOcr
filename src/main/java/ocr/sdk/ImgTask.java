@@ -70,7 +70,6 @@ public class ImgTask implements Callable<List<DetectedObjects.DetectedObject>> {
         for (int i = 0; i < boxes.size(); i++) {
             Image subImg = getSubImage(image, boxes.get(i).getBoundingBox());
             String name = recognizer.predict(subImg);
-            System.out.println(name);
             names.add(name);
             prob.add(-1.0);
             rect.add(boxes.get(i).getBoundingBox());

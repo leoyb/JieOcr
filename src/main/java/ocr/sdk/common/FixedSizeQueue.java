@@ -115,48 +115,4 @@ public class FixedSizeQueue {
         return result;
     }
 
-
-    public static void main(String[] args) {
-        FixedSizeQueue queue = new FixedSizeQueue(4);
-        queue.add("0");
-        String out = queue.isMatch("0", 3);
-        System.out.println("find:" + out );
-        queue.add("0");
-        out = queue.isMatch("1", 3);
-        System.out.println("find:" + out );
-//        queue.add("0");
-        out = queue.isMatch("1", 3);
-        System.out.println("find:" + out );
-//        queue.add("1");
-        out = queue.isMatch("1", 3);
-        System.out.println("find:" + out );
-//        queue.add("1");
-        out = queue.isMatch("1", 3);
-        System.out.println("find:" + out );
-        queue.add("0");
-        queue.correctQueue();
-        System.out.println("find:" + queue );
-        queue.add("0");
-        queue.correctQueue();
-        System.out.println("find:" + queue );
-        queue.add("0");
-        out = queue.isMatch("1", 3);
-        queue.add("1");
-        queue.correctQueue();
-        System.out.println("find:" + queue );
-        System.out.println("find:" + out );
-        out = queue.isMatch("0", 3);
-        queue.add("0");
-        queue.correctQueue();
-        System.out.println("find:" + queue );
-        System.out.println("find:" + out );
-        out = queue.isMatch("1", 2);
-        queue.add("1");
-        queue.correctQueue();
-        queue.add("1");
-        queue.correctQueue();
-        System.out.println("find:" + out );
-
-
-    }
 }
