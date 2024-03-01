@@ -35,7 +35,11 @@ public final class OcrRecognitionExample {
         //这里要用while循环一直监控这路视频，如果有多路视频监控，则要开多线程调用
         while (true) {
             try {
-                detectVideo(urlString);
+                //服务器部署
+//                detectVideo(urlString);
+
+                //本地测试使用
+                testVideo(urlString);
             } catch (Exception e) {
                 System.out.printf("throw error", e.getMessage());
             }
@@ -50,7 +54,6 @@ public final class OcrRecognitionExample {
      * @throws Exception
      */
     public static void detectVideo(String urlString) throws Exception {
-
         FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(urlString);
         grabber.setOption("rtsp_transport", "tcp");
         grabber.setImageWidth(960);
@@ -80,9 +83,6 @@ public final class OcrRecognitionExample {
                 long timeInferEnd = System.currentTimeMillis();
                 System.out.println("time: " + (timeInferEnd - timeInferStart));
 
-
-                //图片显示，结果的用法
-                drawPic(items, image);
             }
             count++;
         }
@@ -94,6 +94,54 @@ public final class OcrRecognitionExample {
         grabber.close();
     }
 
+
+    public static void testVideo(String urlString) throws Exception {
+        CanvasFrame canvasFrame = new CanvasFrame("播放器");
+        canvasFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(urlString);
+        grabber.setOption("rtsp_transport", "tcp");
+        grabber.setImageWidth(960);
+        grabber.setImageHeight(540);
+        grabber.setFrameRate(25);
+        grabber.start();
+
+        // Read and process the video frames
+        Frame frame;
+        long count = 0;
+
+        //对视频进行处理
+        while ((frame = grabber.grab()) != null) {
+            if (count % 25 == 0) {
+                //每隔25帧识别一次
+                Java2DFrameConverter java2DFrameConverter = new Java2DFrameConverter();
+                BufferedImage bufferedImage = java2DFrameConverter.getBufferedImage(frame);
+
+                if (null == bufferedImage) continue;
+
+                Image image = ImageFactory.getInstance().fromImage(bufferedImage);
+
+                //文字识别
+                long timeInferStart = System.currentTimeMillis();
+                //对图像进行识别，并获取返回内容和坐标
+                List<DetectedObject> items = new OcrRecognition().recognizeImg(image);
+                long timeInferEnd = System.currentTimeMillis();
+                System.out.println("time: " + (timeInferEnd - timeInferStart));
+
+                bufferedImage = drawPic(items, image);
+                Frame fr = java2DFrameConverter.getFrame(bufferedImage);
+
+                canvasFrame.showImage(fr); //播放
+
+            }
+            count++;
+        }
+
+        // Stop the FFmpegFrameGrabber
+        grabber.stop();
+
+        // Release the resources
+        grabber.close();
+    }
     /**
      * 将识别结果画在图片上
      *
