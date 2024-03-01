@@ -56,6 +56,14 @@
       <version>${djl.version}</version>
     </dependency>
 
+
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacv-platform</artifactId>
+      <version>1.5.7</version>
+    </dependency>
+
+
     <!-- ONNX -->
     <dependency>
       <groupId>ai.djl.onnxruntime</groupId>
@@ -95,5 +103,10 @@
       <artifactId>dom4j</artifactId>
       <version>1.6.1</version>
     </dependency>
+
+
+
+
+
   </dependencies>
 </project>
