@@ -108,11 +108,13 @@ public class OcrRecognition {
 
 
     public List<DetectedObject> recognizeImg(Image image) throws Exception {
-
+        //先识别上面的大奖
         List<DetectedObjects.DetectedObject> result = new ImgTask(ImgTask.price, image, rectangle0, detectionModel, recognitionModel).call();
         List<DetectedObject> results = filterAward(result);
         List<DetectedObject> finalObj = new ArrayList<>();
         finalObj.addAll(results);
+
+        //对有大奖的玩家识别倍数
         for (DetectedObject obj : results) {
             result = new ImgTask(ImgTask.score, image, rectangleMap.get(obj.getPerson()), detectionModel, recognitionModel).call();
             finalObj.addAll(filterScore(result, obj.getPerson()));
